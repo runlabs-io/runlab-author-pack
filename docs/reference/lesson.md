@@ -12,7 +12,23 @@ A fenced block tagged with one of these languages gets a Run button and a Copy b
 
 Run sends each line to the shell, as if the learner had typed it and pressed Enter.
 
-A block with any other tag, including `console`, `json`, `yaml`, and `yml`, or with no tag at all, is shown as text that can be copied but has no Run button. Use `console` for output you want the learner to read rather than run.
+A block with any other tag, including `console`, `json`, `yaml`, and `yml`, or with no tag at all, is shown as text that can be copied but has no Run button. Use `console` for output you want the learner to read rather than run. An `env` fence is separate: it runs a command and keeps the output in the shell, as [Capture a shell value](#capture-a-shell-value) describes.
+
+### Capture a shell value
+
+An `env` fence runs a command and saves its output in the shell under the name you give.
+
+````markdown
+```env var="GW_IP" interpolated="true"
+kubectl get gtw my-gateway -o jsonpath='{.status.addresses[0].value}'
+```
+````
+
+The learner sees `GW_IP`. Run exports that name in the current shell. The page shows the value, or that the command came back empty. A later shell fence can use `$GW_IP`.
+
+`interpolated="true"` is required. Add `panel="name"` on that same line when the export belongs in one pane, the same way a shell fence does. The value is not written to a file. It dies with that shell. A new shell does not have it.
+
+When the command itself is what you are teaching, keep a shell fence.
 
 ## The Complete lab button
 
@@ -25,7 +41,7 @@ The disabled button shows no hint. The learner sees a disabled Complete lab butt
 
 The checks are a nudge, not a hard stop. A lock sits beside Complete lab. Until the checks pass, the learner can open the lock and complete the lab early. That ends the lab and frees the machine. Escape, a click elsewhere, or a second click on the lock closes it again. When the checks pass, the lock opens and stays open, and Complete lab turns on. There is no setting to turn the lock off.
 
-A command block is a fence with no language, a shell language (`bash`, `sh`, `shell`, `zsh`, `ksh`), or a program language such as `python` or `go`. Every other fence is output, and output does not count. Some things to keep in mind:
+A command block is a fence with no language, a shell language (`bash`, `sh`, `shell`, `zsh`, `ksh`), an `env` fence, or a program language such as `python` or `go`. Every other fence is output, and output does not count. Some things to keep in mind:
 
 - Label output fences, for example `text`, `json` or `yaml`. An unlabeled fence counts as a command, so unlabeled output makes the learner copy it to finish.
 - Optional commands count too. If many blocks are optional, a learner who skips them may not reach 60%.
