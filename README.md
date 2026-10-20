@@ -6,7 +6,7 @@ The manual teaches how to install the pack, build a lab, run it, and test it: ht
 
 Download the latest release and unpack it. The archive contains `trylab`, the program you run, plus what supports it: `prereqs`, `elevate`, `runlabctl`, a `packer/` directory of build scripts, and the instructions. Packer itself is not in the archive. `./prereqs` installs it, and installs `elevate`.
 
-https://github.com/eitansuez/runlab-author-pack/releases/latest
+https://github.com/runlabs-io/runlab-author-pack/releases/latest
 
 ## runlab docs
 

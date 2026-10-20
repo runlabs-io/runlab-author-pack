@@ -70,7 +70,7 @@ Some things to keep in mind:
 - Only a press of Run on the marked block counts. The platform does not check that the command worked, so a Run that fails, or a Run while the terminal is offline, still opens the lock.
 - The lab checks the spelling of the value, not of the attribute. `completions="true"`, `completion=true` without quotes, or a bare `complete` is ignored, and the lab keeps the 2-minute and 60% checks. Copy the attribute exactly.
 - Admin sessions on the hosted site follow the mark too. Trylab on your own machine has no gate, so the mark does nothing there, but a bad mark still stops the lab from opening.
-- Until [issue #145](https://github.com/eitansuez/runlab/issues/145) is fixed, keep every command fence before the marked one at the left margin, outside block quotes and deeper list levels. Such a fence shifts the block numbering, and Run on the marked block then does not open the lock.
+- Until [issue #145](https://github.com/runlabs-io/runlab/issues/145) is fixed, keep every command fence before the marked one at the left margin, outside block quotes and deeper list levels. Such a fence shifts the block numbering, and Run on the marked block then does not open the lock.
 
 ## Links
 

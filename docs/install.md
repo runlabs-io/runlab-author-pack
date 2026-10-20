@@ -4,7 +4,7 @@
 
 Download the latest pack and unpack it. Run every command in this manual from that directory.
 
-https://github.com/eitansuez/runlab-author-pack/releases/latest
+https://github.com/runlabs-io/runlab-author-pack/releases/latest
 
 The pack runs on a 64-bit PC with Linux. Your account needs access to `/dev/kvm`, because that's how Linux starts the lab machine.
 
