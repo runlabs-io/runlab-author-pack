@@ -32,45 +32,13 @@ When the command itself is what you are teaching, keep a shell fence.
 
 ## The Complete lab button
 
-On the hosted site, Complete lab starts disabled. In a lesson that marks no completion command, it turns on when two things are true:
+On the hosted site, Complete lab starts disabled. It turns on when the learner has had the lab page open for 2 minutes. The clock starts when they first open the page, not when the lab machine starts, and a reload or reconnect keeps the time already spent.
 
-- The learner has had the lab page open for 2 minutes. The clock starts when they first open the page, not when the lab machine starts, and a reload or reconnect keeps the time already spent.
-- The learner has used enough command blocks. A block counts once, the first time the learner presses Copy or Run on it. The lab needs at least 60% of the lesson's command blocks, rounded up: 1 of 1, 2 of 2, 2 of 3, 3 of 4, 3 of 5. A lesson with no command blocks skips this check.
+The disabled button shows no hint. The learner sees a disabled Complete lab button, with no time left. The page header shows how long the learner has been in the lab, which is not the time left on the gate. The button turns on by itself, without a reload, when the time runs out. If your lesson should tell learners how to finish, say it in the lesson.
 
-The disabled button shows no hint. The learner sees a disabled Complete lab button, with no time left and no count of blocks used. The page header shows how long the learner has been in the lab, which is not the time left on the gate. The button turns on by itself, without a reload, when the time runs out or when the block that meets the count is used. If your lesson should tell learners how to finish, say it in the lesson.
+The check is a nudge, not a hard stop. A lock sits beside Complete lab. Until the 2 minutes pass, the learner can open the lock and complete the lab early. That ends the lab and frees the machine. Escape, a click elsewhere, or a second click on the lock closes it again. When the time runs out, the lock opens and stays open, and Complete lab turns on. There is no setting to turn the lock off.
 
-The checks are a nudge, not a hard stop. A lock sits beside Complete lab. Until the checks pass, the learner can open the lock and complete the lab early. That ends the lab and frees the machine. Escape, a click elsewhere, or a second click on the lock closes it again. When the checks pass, the lock opens and stays open, and Complete lab turns on. There is no setting to turn the lock off.
-
-A command block is a fence with no language, a shell language (`bash`, `sh`, `shell`, `zsh`, `ksh`), an `env` fence, or a program language such as `python` or `go`. Every other fence is output, and output does not count. Some things to keep in mind:
-
-- Label output fences, for example `text`, `json` or `yaml`. An unlabeled fence counts as a command, so unlabeled output makes the learner copy it to finish.
-- Optional commands count too. If many blocks are optional, a learner who skips them may not reach 60%.
-- Language names are case-sensitive. `Bash` is output, not a command.
-- Start a fence at the left margin, or indented by at most 3 spaces. Keep it out of block quotes and out of deeper list levels. The page still shows such a fence as a command, but the count does not include it.
-- Admin sessions on the hosted site get the same checks and the same lock. Trylab on your own machine skips both checks, so you will not see the gate there. Count your command blocks before you publish, or run the lab on the hosted site as an admin.
-
-### A completion command
-
-A lesson can name the command that means the learner has reached the point the lab is teaching. Put `completion="true"` after the language on that command block:
-
-````markdown
-```shell completion="true"
-curl -s http://httpbin.example.com/headers --resolve httpbin.example.com:80:$GW_IP | jq
-```
-````
-
-When the learner runs that command, the lock opens and Complete lab turns on.
-
-The mark replaces the platform checks for that lab. The 2-minute clock and the 60% count of command blocks no longer open the lock, so copying the other blocks and waiting out the clock does not open it. Copying the marked fence does not open it either, and neither does typing the same text into the terminal. The learner can still open the lock by hand and complete early, as above. A lesson that marks nothing keeps the checks above.
-
-Mark one command, the one the lab builds up to. The `completion` attribute goes after the language, the same way [`panel`](#a-command-for-one-pane) does. A pane command can carry both: `shell panel="gateway" completion="true"`. Two marks, a value other than `true`, or a mark on a fence the learner cannot run, and the lab does not open.
-
-Some things to keep in mind:
-
-- Only a press of Run on the marked block counts. The platform does not check that the command worked, so a Run that fails, or a Run while the terminal is offline, still opens the lock.
-- The lab checks the spelling of the value, not of the attribute. `completions="true"`, `completion=true` without quotes, or a bare `complete` is ignored, and the lab keeps the 2-minute and 60% checks. Copy the attribute exactly.
-- Admin sessions on the hosted site follow the mark too. Trylab on your own machine has no gate, so the mark does nothing there, but a bad mark still stops the lab from opening.
-- Until [issue #145](https://github.com/runlabs-io/runlab/issues/145) is fixed, keep every command fence before the marked one at the left margin, outside block quotes and deeper list levels. Such a fence shifts the block numbering, and Run on the marked block then does not open the lock.
+Admin sessions on the hosted site get the same check and the same lock. Trylab on your own machine skips both, so you will not see the gate there. To see it, run the lab on the hosted site as an admin.
 
 ## Links
 
@@ -185,8 +153,6 @@ agentgateway -f config-llm.yaml
 ````
 
 Run types each line into that pane and presses Enter. Only a shell block (`shell`, `bash`, `sh`, `zsh`, `ksh`) takes a `panel`. A block without one runs in the terminal as before.
-
-The other fence attribute, `completion="true"`, marks the command that finishes the lab. See [A completion command](#a-completion-command).
 
 ### A key for one pane
 
